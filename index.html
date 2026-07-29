@@ -1,47 +1,70 @@
-<!-- DOLNY PASEK MOBILNY -->
-<nav class="mobile-nav">
-    <button class="mob-btn active" onclick="switchTab('player', this)">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        📺 IPTV
+    </div>
+    <div class="header-right">
+        <input type="text" id="search" placeholder="Szukaj kanału...">
+    </div>
+</header>
+
+<div class="container">
+    <!-- MENU / KATEGORIE -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-title">Kategorie</div>
+        <button class="category active" data-group="Wszystkie">Wszystkie</button>
+        <button class="category" data-group="TVP">TVP</button>
+        <button class="category" data-group="Informacje">Informacje</button>
+        <button class="category" data-group="Sport">Sport</button>
+        <button class="category" data-group="Filmy">Filmy</button>
+        <button class="category" data-group="Rozrywka">Rozrywka</button>
+        <button class="category" data-group="Muzyka">Muzyka</button>
+        <button class="category" data-group="Dzieci">Dzieci</button>
+        <button class="category" data-group="Regionalne">Regionalne</button>
+        <button class="category" data-group="Ulubione">⭐ Ulubione</button>
+    </aside>
+
+    <!-- ŚRODEK: PLAYER + EPG -->
+    <main class="content" id="content-view">
+        <div class="player">
+            <video id="video" controls autoplay></video>
+        </div>
+        <div class="epg">
+            <h3>Program TV</h3>
+            <div id="epg">Wybierz kanał...</div>
+        </div>
+    </main>
+
+    <!-- LISTA KANAŁÓW -->
+    <aside class="channels" id="channels-view">
+        <div class="channels-header-mobile">Lista kanałów</div>
+        <div id="channels"></div>
+    </aside>
+</div>
+
+<!-- MOBILNY DOLNY PASEK NAWIGACYJNY -->
+<nav class="mobile-nav" id="mobileNav">
+    <button class="mob-btn active" data-target="player">
         <span>📺</span> Odtwarzacz
     </button>
-    <button class="mob-btn" onclick="switchTab('channels', this)">
+    <button class="mob-btn" data-target="channels">
         <span>📑</span> Kanały
     </button>
-    <button class="mob-btn" onclick="switchTab('categories', this)">
+    <button class="mob-btn" data-target="categories">
         <span>📁</span> Kategorie
     </button>
 </nav>
 
-<script>
-// Prosta funkcja przełączania zakładek na telefonie
-function switchTab(tab, btn) {
-    document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const sidebar = document.querySelector('.sidebar');
-    const content = document.querySelector('.content');
-    const channelsPanel = document.querySelector('.channels');
-
-    if (window.innerWidth <= 768) {
-        sidebar.style.display = 'none';
-        content.style.display = 'none';
-        channelsPanel.style.display = 'none';
-
-        if (tab === 'player') {
-            content.style.display = 'flex';
-        } else if (tab === 'channels') {
-            channelsPanel.style.display = 'block';
-        } else if (tab === 'categories') {
-            sidebar.style.display = 'block';
-            sidebar.style.width = '100%';
-        }
-    }
-}
-
-// Inicjalizacja widoku mobilnego po załadowaniu
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.innerWidth <= 768) {
-        document.querySelector('.sidebar').style.display = 'none';
-        document.querySelector('.channels').style.display = 'none';
-    }
-});
-</script>
+<script src="script.js"></script>
+</body>
+</html>
