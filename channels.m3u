@@ -1,0 +1,56 @@
+#EXTM3U
+
+# =========================
+# PUBLICZNE / TVP
+# =========================
+
+#EXTINF:-1 group-title="TVP",TVP 1 HD
+https://ec06-krk3.cache.orange.pl/dai4/org1/vb/104/tvp1hd/index.m3u8
+
+#EXTINF:-1 group-title="TVP",TVP Info
+https://dash4.antik.sk/live/test_tvp_info/playlist.m3u8
+
+#EXTINF:-1 group-title="TVP",TVP Polonia
+https://dash2.antik.sk/live/test_tvp_polonia/playlist.m3u8
+
+# =========================
+# INFORMACJE
+# =========================
+
+#EXTINF:-1 group-title="Informacje",WPolsce24
+https://lowa8026-cmyk.github.io/WPolscePL.m3u8
+
+# =========================
+# MUZYKA
+# =========================
+
+#EXTINF:-1 group-title="Muzyka",4Fun TV
+https://stream.4fun.tv:8888/hls/4f_high/index.m3u8
+
+#EXTINF:-1 group-title="Muzyka",4Fun Kids
+https://stream.4fun.tv:8889/hls/4fk_high/index.m3u8
+
+# =========================
+# REGIONALNE
+# =========================
+
+#EXTINF:-1 group-title="Regionalne",BTB
+https://emisja.btb.j00r.us/iptv/session/1/hls.m3u8
+
+#EXTINF:-1 group-title="Regionalne",BTB 2
+https://emisja.btb.j00r.us/iptv/session/2/hls.m3u8
+
+#EXTINF:-1 group-title="Regionalne",Telewizja Regionalna Żary
+https://tvregfull.mailfull.pl/tvregfull/memfs/e64b3e05-649c-4939-9ff6-584e79285ccd_output_0.m3u8
+
+#EXTINF:-1 group-title="Regionalne",TVT
+https://live.streamtvt.pl/LiveAppStreamTVT/streams/853271271313930867905724.m3u8
+
+#EXTINF:-1 group-title="Regionalne",Twoja.TV
+https://stream.twoja.tv/ttv_hls/live.m3u8
+
+#EXTINF:-1 group-title="Regionalne",Echo24
+https://echo24new.pl/LiveAppStreamECHO24/streams/GL0VksiIgQUS1672825288490.m3u8
+
+#EXTINF:-1 group-title="Regionalne",New TV
+https://1409502578.rsc.cdn77.org/live/stream-1/playlist.m3u8

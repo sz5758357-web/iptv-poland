@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IPTV Player</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+</head>
+<body>
+
+<header>
+
+    <div class="logo">
+        📺 IPTV
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Szukaj kanału..."
+    >
+
+</header>
+
+
+<div class="container">
+
+    <!-- MENU -->
+
+    <aside class="sidebar">
+
+        <button class="category active" data-group="Wszystkie">
+            Wszystkie
+        </button>
+
+        <button class="category" data-group="TVP">
+            TVP
+        </button>
+
+        <button class="category" data-group="Informacje">
+            Informacje
+        </button>
+
+        <button class="category" data-group="Sport">
+            Sport
+        </button>
+
+        <button class="category" data-group="Filmy">
+            Filmy
+        </button>
+
+        <button class="category" data-group="Rozrywka">
+            Rozrywka
+        </button>
+
+        <button class="category" data-group="Muzyka">
+            Muzyka
+        </button>
+
+        <button class="category" data-group="Dzieci">
+            Dzieci
+        </button>
+
+        <button class="category" data-group="Regionalne">
+            Regionalne
+        </button>
+
+        <button class="category" data-group="Ulubione">
+            ⭐ Ulubione
+        </button>
+
+    </aside>
+
+
+    <!-- ŚRODEK -->
+
+    <main class="content">
+
+        <div class="player">
+
+            <video
+                id="video"
+                controls
+                autoplay
+            ></video>
+
+        </div>
+
+
+        <div class="epg">
+
+            <h3>Program TV</h3>
+
+            <div id="epg">
+
+                Wybierz kanał...
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- LISTA KANAŁÓW -->
+
+    <aside class="channels">
+
+        <div id="channels"></div>
+
+    </aside>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
