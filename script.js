@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    // Wczytywanie pliku z listą kanałów M3U
+    // Pobieranie i parsowanie pliku m3u
     fetch("channels.m3u")
     .then(r => r.text())
     .then(text => {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         render();
     })
-    .catch(err => console.error("Błąd wczytywania listy kanałów:", err));
+    .catch(err => console.error("Błąd ładowania listy kanałów:", err));
 
     function render() {
         if (!channelsDiv) return;
@@ -76,11 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             card.onclick = () => {
                 play(ch);
+                // Na telefonie po kliknięciu w kanał automatycznie przełącz widok na odtwarzacz
                 if (window.innerWidth <= 768) {
-                    const playerBtn = document.querySelector('.mob-btn');
-                    if (playerBtn && typeof switchTab === 'function') {
-                        switchTab('player', playerBtn);
-                    }
+                    switchMobileTab('player');
                 }
             };
 
@@ -111,6 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
             hls = new Hls();
             hls.loadSource(channel.url);
             hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = channel.url;
         } else {
             video.src = channel.url;
         }
@@ -120,9 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (epg) {
             epg.innerHTML = `
                 <b>${channel.name}</b><br><br>
-                20:00 Program telewizyjny<br>
-                21:00 Wydarzenia / Film<br>
-                22:30 Pasmo nocne
+                20:00 Program telewizyjny / Transmisja<br>
+                21:00 Pasmo wieczorne<br>
+                22:30 Wydarzenia dnia
             `;
         }
     }
@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         search.oninput = render;
     }
 
+    // Obsługa kategorii
     document.querySelectorAll(".category").forEach(btn => {
         btn.onclick = () => {
             document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
@@ -139,12 +140,50 @@ document.addEventListener("DOMContentLoaded", () => {
             currentGroup = btn.dataset.group;
             render();
 
+            // Na telefonie po wybraniu kategorii przejdź automatycznie do listy kanałów
             if (window.innerWidth <= 768) {
-                const mobBtns = document.querySelectorAll('.mob-btn');
-                if (mobBtns[1] && typeof switchTab === 'function') {
-                    switchTab('channels', mobBtns[1]);
-                }
+                switchMobileTab('channels');
             }
         };
     });
+
+    // Funkcja zarządzająca zakładkami mobilnymi
+    window.switchMobileTab = function(target) {
+        const content = document.getElementById("content-view");
+        const channelsView = document.getElementById("channels-view");
+        const sidebar = document.getElementById("sidebar");
+        const mobBtns = document.querySelectorAll(".mob-btn");
+
+        if (!content || !channelsView || !sidebar) return;
+
+        content.classList.remove("mobile-active");
+        channelsView.classList.remove("mobile-active");
+        sidebar.classList.remove("mobile-active");
+
+        mobBtns.forEach(b => b.classList.remove("active"));
+
+        if (target === 'player') {
+            content.classList.add("mobile-active");
+            mobBtns[0]?.classList.add("active");
+        } else if (target === 'channels') {
+            channelsView.classList.add("mobile-active");
+            mobBtns[1]?.classList.add("active");
+        } else if (target === 'categories') {
+            sidebar.classList.add("mobile-active");
+            mobBtns[2]?.classList.add("active");
+        }
+    };
+
+    // Podpięcie przycisków dolnego paska mobilnego
+    document.querySelectorAll(".mob-btn").forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.target;
+            switchMobileTab(target);
+        };
+    });
+
+    // Inicjalizacja domyślnego widoku na telefonie
+    if (window.innerWidth <= 768) {
+        switchMobileTab('player');
+    }
 });
